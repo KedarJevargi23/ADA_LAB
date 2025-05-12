@@ -1,0 +1,146 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1. \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs28 \cf0 \expnd0\expndtw0\kerning0
+class MinStack:\
+\
+    def __init__(self):\
+        self.stack = []     \
+        self.min_stack = []   \
+\
+    def push(self, val: int) -> None:\
+        self.stack.append(val)\
+    \
+        if not self.min_stack or val <= self.min_stack[-1]:\
+            self.min_stack.append(val)\
+\
+    def pop(self) -> None:\
+       \
+        if self.stack[-1] == self.min_stack[-1]:\
+            self.min_stack.pop()\
+        self.stack.pop()\
+\
+    def top(self) -> int:\
+        return self.stack[-1]\
+\
+    def getMin(self) -> int:\
+        return self.min_stack[-1]\
+\
+2.\
+class Solution:\
+    def topKFrequent(self, nums, k):\
+        hash = \{\}\
+        ans = []\
+        repeat = set()\
+\
+        for i in nums:\
+            if i in hash:\
+                hash[i] += 1\
+            else:\
+                hash[i] = 1\
+\
+        for _ in range(k):\
+            max_freq = 0\
+            max_ele = None\
+            for i in hash:\
+                if hash[i] > max_freq and i not in repeat:\
+                    max_freq = hash[i]\
+                    max_ele = i\
+            ans.append(max_ele)\
+            repeat.add(max_ele)\
+\
+        return ans\
+3.\
+class Solution:\
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:\
+        \
+        res = []\
+\
+        for a in asteroids:\
+\
+            while res and a < 0 < res[-1]:\
+                if -a > res[-1]:\
+                    res.pop()\
+                    continue\
+                elif -a == res[-1]:\
+                    res.pop()\
+                break\
+            else:\
+                res.append(a)\
+\
+        return res\
+4.\
+class MyCircularQueue:\
+    def __init__(self, k: int):\
+        self.capacity = k\
+        self.queue = [0] * k\
+        self.first = -1\
+        self.last = -1\
+        self.size = 0\
+        \
+    def enQueue(self, value: int) -> bool:\
+        if self.isFull():\
+            return False\
+            \
+        if self.first == -1:\
+            self.first = 0\
+            \
+        self.last = (self.last + 1) % self.capacity\
+        self.queue[self.last] = value\
+        self.size += 1\
+        return True\
+        \
+    def deQueue(self) -> bool:\
+        if self.isEmpty():\
+            return False\
+            \
+        if self.first == self.last:\
+            self.first = -1\
+            self.last = -1\
+            self.size = 0\
+        else:\
+            self.first = (self.first + 1) % self.capacity\
+            self.size -= 1\
+        return True\
+        \
+    def Front(self) -> int:\
+        if self.isEmpty():\
+            return -1\
+        return self.queue[self.first]\
+        \
+    def Rear(self) -> int:\
+        if self.isEmpty():\
+            return -1\
+        return self.queue[self.last]\
+        \
+    def isEmpty(self) -> bool:\
+        return self.first == -1\
+        \
+    def isFull(self) -> bool:\
+        return self.size == self.capacity\
+5.\
+class Solution:\
+    def clearDigits(self, s: str) -> str:\
+        answer = []\
+        for i in s:\
+            if i.isdigit() and answer:\
+                answer.pop()\
+            else:\
+                answer.append(i)\
+        return "".join(answer)\
+6.\
+class Solution:\
+    def findKthLargest(self, nums: List[int], k: int) -> int:\
+        if not nums:\
+            return nums\
+        nums.sort()\
+        nums.reverse()\
+        return nums[k-1]\
+        }
